@@ -22,11 +22,12 @@ require.config({
     'service': '../app/models/service',
     'servicelist': '../app/collections/servicelist',
     'serviceview': '../app/views/serviceview',
-    'photogrid': '../app/views/photogrid/photogrid',
+    'chooserview': '../app/views/chooserview',
     'addserviceview': '../app/views/addserviceview',
     'flashmessageview': '../app/views/flashmessageview',
     'dispatcher': '../app/events/dispatcher',
-    'utils': '../assets/js/libs/tools/utils'
+    'utils': '../assets/js/libs/tools/utils',
+    'sapp': '../assets/js/libs/modules/sapp'
   }
 
 });
@@ -40,4 +41,5 @@ require([
   // The "app" dependency is passed in as "App"
   // Again, the other dependencies passed in are not "AMD" therefore don't pass a parameter to this function
   App.initialize();
+  
 });
