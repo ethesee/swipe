@@ -4,7 +4,7 @@ define([
   'async',
   'underscore',
   'backbone',
-  'chooserview',
+  'photogrid',
   'addserviceview',
   'flashmessageview',
   'servicelist',
@@ -12,7 +12,7 @@ define([
   /*'views/library/LibraryView',
   'facebook',
   'models/person/person'*/
-], function($, async, _, Backbone, ChooserView, AddServiceView,FlashMessageView,ServiceList,Utils /*, LibraryView, facebook, FacebookPerson */) {
+], function($, async, _, Backbone, PhotoGrid, AddServiceView,FlashMessageView,ServiceList,Utils /*, LibraryView, facebook, FacebookPerson */) {
   
   
   var AppRouter = Backbone.Router.extend({
@@ -29,7 +29,8 @@ define([
     initialize: function(){
     	this.flashView = new FlashMessageView();
     	this.services = new ServiceList();
-    	this.mainView = new ChooserView({collection: this.services});
+    	//this.mainView = new ChooserView({collection: this.services});
+      this.mainView = new PhotoGrid({collection: this.services});
     	
     	this.on('route:showAbout', function(){
 	      Utils.activeLink('About');

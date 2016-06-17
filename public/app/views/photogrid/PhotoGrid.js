@@ -7,8 +7,9 @@ define([
   'serviceview',
   'dispatcher',
   'utils',
-  'text!templates/photogrid/photogridtemplate.html'
-], function($,_, Backbone,Service,ServiceList,ServiceView,dispatcher,Utils,photoGridTemplate) {
+  'text!templates/photogrid/photogridtemplate.html',
+  'sapp'
+], function($,_, Backbone,Service,ServiceList,ServiceView,dispatcher,Utils,photoGridTemplate,Sapp) {
 // The main view of the application
 	var PhotoGrid = Backbone.View.extend({
 
@@ -17,7 +18,7 @@ define([
 		//template: chooserTemplate,
 
 		initialize: function(options){
-			this.router = options.router;
+			// this.router = options.router;
 			this.services = options.collection;
 			this.services.on("reset", this.render, this);
 	        this.render();
@@ -90,7 +91,7 @@ define([
 			
 			
 			//this.router.navigate();
-			this.router.navigate('Home', true);
+			Sapp.router.navigate('Home', true);
 			
 		},
 

@@ -23,6 +23,7 @@ require.config({
     'servicelist': '../app/collections/servicelist',
     'serviceview': '../app/views/serviceview',
     'chooserview': '../app/views/chooserview',
+    'photogrid': '../app/views/photogrid/photogrid',
     'addserviceview': '../app/views/addserviceview',
     'flashmessageview': '../app/views/flashmessageview',
     'dispatcher': '../app/events/dispatcher',

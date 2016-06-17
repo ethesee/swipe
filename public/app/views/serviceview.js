@@ -3,15 +3,18 @@ define([
   'underscore',
   'backbone',
   'dispatcher',
-  'text!templates/serviceTemplate.html'
-], function($,_, Backbone, dispatcher,serviceTemplate) {
+  'sapp',
+  'text!templates/servicebox.html'
+  //'text!templates/serviceTemplate.html'
+], function($,_, Backbone, dispatcher,sapp,serviceTemplate) {
 // This view turns a Service model into HTML
 	var ServiceView = Backbone.View.extend({
 		//tagName: 'li',
 		tagName: 'div',
 		template: serviceTemplate,
 		events:{
-			'click [type="checkbox"]': 'toggleService'
+			//'click [type="checkbox"]': 'toggleService'
+			'click' : 'selectThumb'
 		},
 
 		initialize: function(){
@@ -19,18 +22,34 @@ define([
 			dispatcher.on('showim', this.toggleDiv, this);
 		},
 
+		// render: function(){
+  //           var tmpl = _.template(this.template);
+  //           if ( this.model.get('id')){
+  //           	this.$el.html(tmpl(this.model.toJSON()));
+  //           	this.$('input').prop('checked', this.model.get('checked'));
+  //           }
+            
+            
+            
+		// 	return this;
+		// },
 		render: function(){
             var tmpl = _.template(this.template);
             if ( this.model.get('id')){
             	this.$el.html(tmpl(this.model.toJSON()));
-            	this.$('input').prop('checked', this.model.get('checked'));
+            	//this.$('input').prop('checked', this.model.get('checked'));
             }
             
             
             
 			return this;
 		},
-
+		selectThumb: function(e){
+			e.preventDefault();
+			console.log("clicked on image: + " + this.model.get('title'))
+			//sapp.router.navigate('/:' + this.model.get('id'),true);
+			sapp.router.navigate('Home', true);
+		},
 		toggleService: function(e){	
 			this.model.toggle();			
 		}
