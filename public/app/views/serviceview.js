@@ -14,7 +14,9 @@ define([
 		template: serviceTemplate,
 		events:{
 			//'click [type="checkbox"]': 'toggleService'
-			'click' : 'selectThumb'
+			//'click' : 'selectThumb',
+			'click #swipe-right': "swipeRight",
+			'click #swipe-left': "swipeLeft",
 		},
 
 		initialize: function(){
@@ -52,6 +54,16 @@ define([
 		},
 		toggleService: function(e){	
 			this.model.toggle();			
+		},
+		swipeRight: function(e){
+			e.preventDefault();
+			console.log("swipeRight:" + this.model.get("_id"));
+			dispatcher.trigger("page",{direction: "right", id: this.model.get("_id")});
+		},
+		swipeLeft: function(e){
+			e.preventDefault();
+			console.log("swipeLeft:" + this.model.get("_id"));
+			dispatcher.trigger("page",{direction: "left", id: this.model.get("_id")});
 		}
 	});
 	return ServiceView;

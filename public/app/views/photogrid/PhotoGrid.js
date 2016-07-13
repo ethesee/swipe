@@ -16,6 +16,7 @@ define([
 		// Base the view on an existing element
 		el: $('#Wcontainer'),
 		//template: chooserTemplate,
+		idIterator: "",
 
 		initialize: function(options){
 			// this.router = options.router;
@@ -25,15 +26,28 @@ define([
 			this.listenTo(this.services, 'change', this.render);
 			this.listenTo(this.services, 'add', this.render);
 			this.services.fetch();
-			dispatcher.on('insert', this.addService, this);	
+			dispatcher.on('insert', this.addService, this);
+			dispatcher.on('page', this.pageService, this);
 		},
-
+		setIterator: function(id){
+			this.idIterator = id;
+		},
 		createServiceViews: function(){
 			this.list.empty();
 			this.total = $('#total span');
+			var showNext = false;
 			this.services.each(function(service){
 				var view = new ServiceView({ model: service });
-				this.list.append(view.render().el);
+				if ( this.idIterator === ""){
+					this.idIterator = service.get("_id");
+					this.list.append(view.render().el);
+				}else if ( this.idIterator === service.get("_id") ){
+					showNext = true;
+				}else if ( showNext ){
+					this.list.append(view.render().el);
+					showNext = false;
+				}
+				
 			}, this);	// "this" is the context in the callback
 		},
 
@@ -51,11 +65,11 @@ define([
 				var price = parseFloat(elem.get('price'));
 				total += ( typeof price !== 'undefined') ? price : 0;
 			});
-			//total = total.toFixed(2);
+			
 			total = Utils.roundToTwo(total);
 			// Update the total price
 			this.total.text('$'+total);
-            //console.log("total:" + total);
+            
 			return this;
 
 		},
@@ -66,6 +80,11 @@ define([
 			'click #del': "delProducts",
 			'click #showAdd': "toggleAddForm",
 			//'click #addService': "addService"
+		},
+		pageService: function(s){
+			console.log("pageService called:", s);
+			this.setIterator(s.id);
+			this.render();
 		},
 		addService: function(s){
 		    		
